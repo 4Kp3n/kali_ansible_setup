@@ -16,14 +16,16 @@ kali_tools: true
 # 3-configuration.yml
 kali_configuration: true
 
+# 3-addconfigs.yml
+kali_addconfigs: true
+
 # 4-post-configuration.yml
 post_configuration: true
 
 # Define the list of packages to install within 1-packages.yml
 packages:
-  - awscli
-  - azure-cli
   - bloodhound
+  - chisel
   - cmake
   - covenant-kbx
   - curl
@@ -34,50 +36,62 @@ packages:
   - exa
   - exif
   - exiftool
+  - feroxbuster
   - flameshot
   - ffuf
-  - gdb
-  - gdbserver
   - ghidra
   - gobuster
+  - guake
   - hexedit
+  - htop
   - jq
   - libssl-dev
   - libimage-exiftool-perl
   - mlocate
   - nbtscan-unixwiz
+  - neovim
   - neo4j
   - net-tools
   - nikto
   - nmap
   - openssh-server
+  - oscanner
   - parallel
   - payloadsallthethings
   - pipx
   - python3-pip
   - python3-venv
+  - ranger
   - rlwrap
   - seclists
   - scite
   - smbclient
   - smtp-user-enum
+  - tnscmd10g
   - whatweb
   - wireshark
+  - wkhtmltopdf
   - xclip
   - xsel
 
 # Define the list of packages to install within 1-packages.yml
 python_pip_packages:
   - bloodhound
-  - capstone
+  - cheroot
+  - docutils
+  - libtmux
   - mitm6
   - pipenv
   - poetry
   - pwntools
+  - pywal
+  - pyyaml
+  - pyfzf
+  - pyperclip
   - roadrecon
   - ropper
   - unicorn
-  - pywal
+  - wsgidav
 
 # Define the list of packages to install within 1-packages.yml
 ruby_gem_packages:

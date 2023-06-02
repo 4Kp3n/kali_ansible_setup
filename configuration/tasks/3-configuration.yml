@@ -61,18 +61,18 @@
 - name: Git clone Powerlevel10k
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: /home/{{user}}/powerlevel10k
+    dest: /home/{{user}}/Setup/powerlevel10k
     depth: 1
     update: yes
     force: yes
 
 - name: Echo powerlvl10k zsh theme to zshrc - User
-  ansible.builtin.shell: echo 'source /home/{{user}}/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+  ansible.builtin.shell: echo 'source /home/{{user}}/Setup/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
   become: true
   become_user: "{{ user }}"
 
 - name: Echo powerlvl10k zsh theme to zshrc - Root
-  ansible.builtin.shell: echo 'source /home/{{user}}/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+  ansible.builtin.shell: echo 'source /home/{{user}}/Setup/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 
 # Tmux
 - name: Set .tmux.conf settings
@@ -101,19 +101,11 @@
   become: true
   become_user: "{{ user }}"
 
-# Exa
-- name: Set Exa as ls alias - User
-  ansible.builtin.shell: echo 'alias ls="exa"' >> /home/{{user}}/.zshrc
-  become: true
-  become_user: "{{ user }}"
-
-- name: Set Exa as ls alias - Root
-  ansible.builtin.shell: echo 'alias ls="exa"' >> /root/.zshrc
 
 # Change directory ownerships
-- name: Recursively change ownership of the ~/powerlevel10k directory
+- name: Recursively change ownership of the ~/Setup directory
   ansible.builtin.file:
-    path: /home/{{ user }}/powerlevel10k
+    path: /home/{{ user }}/Setup
     state: directory
     recurse: yes
     owner: "{{ user }}"

@@ -20,6 +20,11 @@
   become: true
   when: kali_configuration == true
 
+- name: Custom configuration and dotfiles
+  import_tasks: 3-addconfigs.yml
+  become: true
+  when: kali_addconfigs == true
+
 - name: Finalize the configuration
   import_tasks: 4-post-configuration.yml
   become: true

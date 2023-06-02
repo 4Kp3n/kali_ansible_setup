@@ -17,3 +17,8 @@
 - name: Clean apt cache
   ansible.builtin.apt:
     autoclean: true
+      
+- name: Remove unwanted folders
+  ansible.builtin.shell: rm -rf Documents Music Pictures Public Templates Videos
+  become: true
+  become_user: "{{ user }}"
