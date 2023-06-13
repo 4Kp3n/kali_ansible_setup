@@ -30,6 +30,20 @@
     - regexp: "^CipherStrings ="
       line: "CipherStrings = DEFAULT"
 
+# Setup Oh My Zsh
+- name: Git clone Oh My Zsh 
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: /home/{{user}}/Setup/ohmyzsh
+    depth: 1
+    update: yes
+    force: yes
+
+- name: Install Oh My Zsh
+  ansible.builtin.shell: /home/{{user}}/Setup/ohmyzsh/tools/install.sh
+  become: true
+  become_user: "{{ user }}"
+
 # ZSH Theme
 # Install Icons
 - name: Ensure fonts directory exists
@@ -75,13 +89,6 @@
   ansible.builtin.shell: echo 'source /home/{{user}}/Setup/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 
 # Tmux
-- name: Set .tmux.conf settings
-  ansible.builtin.template:
-    src: templates/home/kali/.tmux.conf.j2
-    dest: /home/{{ user }}/.tmux.conf
-    owner: "{{ user }}"
-    group: "{{ user }}"
-
 - name: Ensure .tmux directory exists
   file:
     path: "/home/{{ user }}/.tmux/"
@@ -100,7 +107,23 @@
   ansible.builtin.shell: git clone https://github.com/tmux-plugins/tpm /home/{{ user }}/.tmux/plugins/tpm
   become: true
   become_user: "{{ user }}"
-
+    
+# Add bloodhound queries
+- name: Git clone BloodHoundQueries
+  git:
+    repo: https://github.com/CompassSecurity/BloodHoundQueries.git
+    dest: /home/{{user}}/Setup/BloodHoundQueries
+    depth: 1
+    update: yes
+    force: yes
+      
+## Commented out for now because .config/bloodhound only gets populated after running it once
+#- name: Copy custom queries into bloodhound config
+#  ansible.builtin.copy:
+#    src: /home/{{user}}/Setup/BloodHoundQueries/BloodHound_Custom_Queries/customqueries.json
+#    dest: /home/{{user}}/.config/bloodhound/customqueries.json
+#    owner: "{{ user }}"
+#    group: "{{ user }}"
 
 # Change directory ownerships
 - name: Recursively change ownership of the ~/Setup directory

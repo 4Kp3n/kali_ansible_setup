@@ -7,40 +7,6 @@
     depth: 1
     update: yes
     force: yes
-      
-# Setup Oh My Zsh
-- name: Git clone Oh My Zsh 
-  git:
-    repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: /home/{{user}}/Setup/ohmyzsh
-    depth: 1
-    update: yes
-    force: yes
-
-- name: Add aliase to zshrc
-  ansible.builtin.shell: /home/{{user}}/Setup/ohmyzsh/tools/install.sh
-  become: true
-  become_user: "{{ user }}"
-
-#- name: Creates directory for nvim
-#  file:
-#    path: /home/{{user}}/.local/share/nvim/view
-#    state: directory
-#    owner: www-data
-#    group: www-data
-#    mode: 0775
-#    recurse: yes
-#    
-
-# Clone personal arsenal repo
-- name: Git clone own arsenal fork
-  git:
-    repo: https://github.com/4Kp3n/arsenal.git
-    dest: /opt/arsenal
-    depth: 1
-    update: yes
-    force: yes
-
 
 # Setup neovim with Vundle as plugin manager
 - name: Git clone Vundle 
@@ -77,8 +43,7 @@
     owner: "{{ user }}"
     group: "{{ user }}"
 
-
-# Take care of aliase
+# Copy aliase
 - name: Copy aliase
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/kali-aliase
@@ -86,8 +51,7 @@
     owner: "{{ user }}"
     group: "{{ user }}"
 
-
-# Change tmux config
+# Copy tmux config
 - name: Change tmux config
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/tmux.conf

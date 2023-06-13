@@ -70,6 +70,16 @@
     - /opt/tools
     - /opt/tmp
 
+# Clone personal arsenal repo
+- name: Git clone own arsenal fork
+  git:
+    repo: https://github.com/4Kp3n/arsenal.git
+    dest: /opt/arsenal
+    depth: 1
+    update: yes
+    force: yes
+
+
 # Clone git repos
 - name: clone git repositories, download files and create directory structure
   block:
@@ -113,16 +123,6 @@
       ansible.builtin.copy:
         src: /opt/tools/peas/winpeas.exe
         dest: /opt/privesc/windows/winpeas.exe
-        
-    - name: copy adpeas
-      ansible.builtin.copy:
-        src: /opt/tmp/adpeas/adPEAS.ps1
-        dest: /opt/privesc/windows/adpeas.ps1
-
-    - name: copy adpeas light
-      ansible.builtin.copy:
-        src: /opt/tmp/adpeas/adPEAS-Light.ps1
-        dest: /opt/privesc/windows/adpeas_light.ps1
         
     - name: copy linenum
       ansible.builtin.copy:
