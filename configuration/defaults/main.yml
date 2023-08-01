@@ -68,6 +68,7 @@ packages:
   - scite
   - smbclient
   - smtp-user-enum
+  - sshpass
   - tnscmd10g
   - whatweb
   - wireshark

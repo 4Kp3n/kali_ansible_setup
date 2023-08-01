@@ -18,6 +18,13 @@
     executable: pip3
     requirements: /opt/autorecon/requirements.txt
 
+- name: Copy ligolo-ng from repository
+  git:
+    repo: https://github.com/nicocha30/ligolo-ng.git    
+    dest: /opt/ligolo-ng
+    update: yes
+    force: yes
+
 - name: Install pipx - Pt. 1
   ansible.builtin.shell: python3 -m pip install --user pipx
   become: true
