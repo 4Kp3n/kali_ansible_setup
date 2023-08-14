@@ -40,15 +40,14 @@ packages:
   - feroxbuster
   - flameshot
   - ffuf
-  - ghidra
   - gobuster
   - guake
+  - gvm
   - hexedit
   - htop
   - jq
   - libssl-dev
   - libimage-exiftool-perl
-  - mlocate
   - nbtscan-unixwiz
   - neovim
   - neo4j
@@ -125,7 +124,10 @@ git_repos:
     repo: https://github.com/OWASP/joomscan.git
   - name: gittools
     repo: https://github.com/internetwache/GitTools.git
+  - name: pwndoc
+    repo: https://github.com/pwndoc/pwndoc.git
 
+# Those should all be added to PandorasBox
 # Define the list of misc tools that should be installed
 misc_downloads:
   - url: https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64

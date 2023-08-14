@@ -87,7 +87,7 @@
     force: yes
 
 
-# Clone git repos
+# Clone git repos listed in main.yml
 - name: clone git repositories, download files and create directory structure
   block:
   - name: Clone git repositories

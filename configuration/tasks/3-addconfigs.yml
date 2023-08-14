@@ -58,3 +58,11 @@
     dest: /home/{{user}}/.tmux.conf
     owner: "{{ user }}"
     group: "{{ user }}"
+
+# Copy xfce4-power-manager.xml to disable screen lock
+- name: Copy xfce4-power-manager.xml
+  ansible.builtin.copy:
+    src: /home/{{user}}/Setup/configs/xfce4-power-manager.xml
+    dest: /home/{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+    owner: "{{ user }}"
+    group: "{{ user }}"

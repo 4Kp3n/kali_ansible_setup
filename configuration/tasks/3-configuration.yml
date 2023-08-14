@@ -75,18 +75,10 @@
 - name: Git clone Powerlevel10k
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: /home/{{user}}/Setup/powerlevel10k
+    dest: /home/{{user}}/.oh-my-zsh/custom/themes/powerlevel10k
     depth: 1
     update: yes
     force: yes
-
-- name: Echo powerlvl10k zsh theme to zshrc - User
-  ansible.builtin.shell: echo 'source /home/{{user}}/Setup/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
-  become: true
-  become_user: "{{ user }}"
-
-- name: Echo powerlvl10k zsh theme to zshrc - Root
-  ansible.builtin.shell: echo 'source /home/{{user}}/Setup/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 
 # Tmux
 - name: Ensure .tmux directory exists
