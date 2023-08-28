@@ -9,47 +9,73 @@
     force: yes
 
 # Setup neovim with Vundle as plugin manager
-- name: Git clone Vundle 
+- name: Git clone Vundle for kali
   git:
     repo: https://github.com/VundleVim/Vundle.vim.git
     dest: /home/{{user}}/.config/nvim/bundle/Vundle.vim
     depth: 1
     update: yes
     force: yes
+- name: Git clone Vundle for root
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: /root/.config/nvim/bundle/Vundle.vim
+    depth: 1
+    update: yes
+    force: yes
 
-- name: Copy vim config
+- name: Copy vim config for kali
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/init.vim
     dest: /home/{{user}}/.config/nvim/init.vim
     owner: "{{ user }}"
     group: "{{ user }}"
+- name: Copy vim config for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Setup/configs/init.vim
+    dest: /root/.config/nvim/init.vim
 
 - name: Install vim plugins 
   ansible.builtin.shell: nvim +PluginInstall +qall
   become: true
   become_user: "{{ user }}"
+- name: Install vim plugins 
+  ansible.builtin.shell: nvim +PluginInstall +qall
+  become: true
 
 # Copy zshrc files
-- name: Copy zshrc
+- name: Copy zshrc for kali
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/zshrc
     dest: /home/{{user}}/.zshrc
     owner: "{{ user }}"
     group: "{{ user }}"
-- name: Copy p10k.zshrc
+- name: Copy zshrc for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Setup/configs/zshrc
+    dest: /root/.zshrc
+- name: Copy p10k.zshrc for kali
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/p10k.zsh
     dest: /home/{{user}}/.p10k.zsh
     owner: "{{ user }}"
     group: "{{ user }}"
+- name: Copy p10k.zshrc for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Setup/configs/p10k.zsh
+    dest: /root/.p10k.zsh
 
 # Copy aliase
-- name: Copy aliase
+- name: Copy user aliase
   ansible.builtin.copy:
     src: /home/{{user}}/Setup/configs/kali-aliase
     dest: /home/{{user}}/.aliase
     owner: "{{ user }}"
     group: "{{ user }}"
+- name: Copy root aliase
+  ansible.builtin.copy:
+    src: /home/{{user}}/Setup/configs/root-aliase
+    dest: /root/.aliase
 
 # Copy tmux config
 - name: Change tmux config

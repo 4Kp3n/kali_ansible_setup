@@ -23,6 +23,7 @@
 - name: Update all packages to the latest version
   ansible.builtin.apt:
     upgrade: safe
+      
 
 # Configure some update settings
 - name: Disable apt systemd timers

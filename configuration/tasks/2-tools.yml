@@ -6,24 +6,27 @@
     name: "git"
     state: present
 
+# Create folder Tools 
+- name: Create Tools folder in $HOME  
+  ansible.builtin.file:
+      dest: "/home/{{ user }}/Tools"
+      state: directory
+      owner: "{{ user }}"
+      group: "{{ user }}" 
+      mode: 0700
+
+### AUTORECON
 - name: Copy AutoRecon from repository
   git:
     repo: https://github.com/Tib3rius/AutoRecon
-    dest: /opt/autorecon
+    dest: /home/{{ user}}/Tools/autorecon
     update: yes
     force: yes
 
 - name: Install AutoRecon Requirements
   pip:
     executable: pip3
-    requirements: /opt/autorecon/requirements.txt
-
-- name: Copy ligolo-ng from repository
-  git:
-    repo: https://github.com/nicocha30/ligolo-ng.git    
-    dest: /opt/ligolo-ng
-    update: yes
-    force: yes
+    requirements: /home/{{ user}}/Tools/autorecon/requirements.txt
 
 - name: Install pipx - Pt. 1
   ansible.builtin.shell: python3 -m pip install --user pipx
@@ -60,137 +63,34 @@
   become: true
   become_user: "{{user}}"
   ansible.builtin.shell: /home/{{user}}/.local/bin/pipx install git+https://github.com/Tib3rius/AutoRecon.git
-    
-# Create the desired /opt/ file structure
-- name: Create necessary directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  loop:
-    - /opt/privesc/linux
-    - /opt/privesc/windows
-    - /opt/privesc/exploits
-    - /opt/privesc/tools
-    - /opt/tools
-    - /opt/tmp
 
-# Clone personal arsenal repo
-- name: Git clone own arsenal fork
-  git:
+  
+# Install VScode
+- name: Add Microsofts PGP key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+- name: Add VS Code repository
+  copy:
+    content: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    dest: "/etc/apt/sources.list.d/vscode.list"
+  become: yes
+- name: Install VScode
+  apt:
+    name: code
+    state: present
+    update_cache: yes
+
+
+- name: Clone personal arsenal fork
+  ansible.builtin.git:
     repo: https://github.com/4Kp3n/arsenal.git
-    dest: /opt/arsenal
-    depth: 1
-    update: yes
-    force: yes
+    dest: "/home/{{ user }}/Tools/arsenal"
+    force: true
 
+- name: Clone pwndoc
+  ansible.builtin.git:
+    repo: https://github.com/pwndoc/pwndoc.git
+    dest: "/home/{{ user }}/Tools/pwndoc"
+    force: true
 
-# Clone git repos listed in main.yml
-- name: clone git repositories, download files and create directory structure
-  block:
-  - name: Clone git repositories
-    ansible.builtin.git:
-      repo: "{{ item.repo }}"
-      dest: "/opt/tmp/{{ item.name }}"
-      version: "{{ item.version | default('master') }}"
-      depth: 1
-      force: true
-    loop: "{{ git_repos | flatten(levels=1) }}"
-
-  # Miscellaneous tools
-  - name: Ensure destination directory exists
-    ansible.builtin.file:
-      dest: "{{ item.dest | dirname }}"
-      state: directory
-      owner: root
-      group: root
-      mode: 0755
-    loop: "{{ misc_downloads }}"
-
-  - name: Download files
-    ansible.builtin.get_url:
-      url: "{{ item.url }}"
-      dest: "{{ item.dest }}"
-      owner: root
-      group: root
-      mode: 0644
-    loop: "{{ misc_downloads }}"
-  ignore_errors: yes
-
-- name: file copies to cure OCD
-  block:
-    - name: copy linpeas
-      ansible.builtin.copy:
-        src: /opt/tools/peas/linpeas.sh
-        dest: /opt/privesc/linux/linpeas.sh
-
-    - name: copy winpeas
-      ansible.builtin.copy:
-        src: /opt/tools/peas/winpeas.exe
-        dest: /opt/privesc/windows/winpeas.exe
-        
-    - name: copy linenum
-      ansible.builtin.copy:
-        src: /opt/tmp/linenum/LinEnum.sh
-        dest: /opt/privesc/linux/linenum.sh
-
-    - name: copy jaws
-      ansible.builtin.copy:
-        src: /opt/tmp/just-another-windows-enum-script/jaws-enum.ps1
-        dest: /opt/privesc/windows/jaws.ps1
-
-    - name: copy linux-exploit-suggester-1
-      ansible.builtin.copy:
-        src: /opt/tmp/linux-exploit-suggester-1/linux-exploit-suggester.sh
-        dest: /opt/privesc/linux/les.sh
-
-    - name: copy linux-exploit-suggester-2
-      ansible.builtin.copy:
-        src: /opt/tmp/linux-exploit-suggester-2/linux-exploit-suggester-2.pl
-        dest: /opt/privesc/linux/les2.pl
-
-    - name: copy linux-smart-enumeration
-      ansible.builtin.copy:
-        src: /opt/tmp/linux-smart-enumeration/lse.sh
-        dest: /opt/privesc/linux/lse.sh
-
-    # Doing some directory copying to cure OCD
-    - name: copy droopescan
-      ansible.builtin.copy:
-        src: /opt/tmp/droopescan/
-        dest: /opt/droopescan/
-
-    - name: copy joomscan
-      ansible.builtin.copy:
-        src: /opt/tmp/joomscan/
-        dest: /opt/joomscan/
-
-    - name: copy gittools
-      ansible.builtin.copy:
-        src: /opt/tmp/gittools/
-        dest: /opt/gittools/
-
-    - name: copy watson
-      ansible.builtin.copy:
-        src: /opt/tmp/watson/
-        dest: /opt/watson/
-
-    # Unzip some archives
-    - name: unzip nc
-      ansible.builtin.unarchive:
-        src: /opt/tools/nc/nc.zip
-        dest: /opt/tools/nc/
-
-    - name: unzip pstools
-      ansible.builtin.unarchive:
-        src: /opt/tools/pstools/pstools.zip
-        dest: /opt/tools/pstools/
-
-    # Delete the /opt/tmp directory 
-    - name: deleting the /opt/tmp directory
-      file:
-        state: absent
-        path: /opt/tmp/
-  ignore_errors: yes
