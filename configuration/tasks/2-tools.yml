@@ -80,17 +80,18 @@
     name: code
     state: present
     update_cache: yes
+      
 
-
-- name: Clone personal arsenal fork
-  ansible.builtin.git:
-    repo: https://github.com/4Kp3n/arsenal.git
-    dest: "/home/{{ user }}/Tools/arsenal"
-    force: true
-
-- name: Clone pwndoc
-  ansible.builtin.git:
-    repo: https://github.com/pwndoc/pwndoc.git
-    dest: "/home/{{ user }}/Tools/pwndoc"
-    force: true
-
+# Clone git repos
+- name: clone git repositories, download files and create directory structure
+  block:
+  - name: Clone git repositories
+    become: true
+    become_user: "{{ user }}"
+    ansible.builtin.git:
+      repo: "{{ item.repo }}"
+      dest: "/home/{{ user }}/{{ item.path }}"
+      version: "{{ item.version | default('main') }}"
+      depth: 1
+      force: true
+    loop: "{{ git_repos | flatten(levels=1) }}"

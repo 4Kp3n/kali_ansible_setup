@@ -24,12 +24,11 @@ post_configuration: true
 
 # Define packages installed in 1-packages.yml
 packages:
-  - apt-transport-https
+  - apt-transport-https #VScode
   - ascii
   - bloodhound
   - chisel
   - cmake
-  - covenant-kbx
   - curl
   - docker.io
   - docker-compose
@@ -39,9 +38,9 @@ packages:
   - exif
   - exiftool
   - feroxbuster
-  - flameshot
+  - flameshot #Nice tool to make screenshots
   - ffuf
-  - gnupg2
+  - gnupg2 #VScode
   - gobuster
   - golang
   - guake
@@ -52,6 +51,7 @@ packages:
   - krb5-user
   - libssl-dev
   - libimage-exiftool-perl
+  - mingw-w64 #ScareCrow
   - nbtscan-unixwiz
   - neovim
   - neo4j
@@ -60,29 +60,63 @@ packages:
   - nmap
   - openssh-server
   - oscanner
-  - osslsigncode
+  - osslsigncode #ScareCrow
   - parallel
   - payloadsallthethings
   - pipx
   - python3-pip
   - python3-venv
-  - ranger
+  - ranger #Vim like file explorer
   - rlwrap
   - seclists
-  - scite
   - smbclient
   - smtp-user-enum
-  - software-properties-common
+  - software-properties-common #Vscode
   - sshpass
   - tnscmd10g
   - whatweb
   - wireshark
   - wkhtmltopdf
-  - xclip
+  - xclip #Copy terminal output to clipboard in X11
   - xsel
+    
+git_repos:
+    # Terminal
+  - name: configs
+    repo: https://github.com/4Kp3n/configs.git
+    path: Setup/configs
+  - name: Vundle
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    path: .config/nvim/bundle/Vundle.vim
+    version: master
+    # Tools
+  - name: arsenal
+    repo: https://github.com/4Kp3n/arsenal.git
+    path: Tools/arsenal
+    version: master
+  - name: pwndoc
+    repo: https://github.com/pwndoc/pwndoc.git
+    path: Tools/pwndoc
+  - name: ScareCrow
+    repo: https://github.com/Tylous/ScareCrow.git
+    path: Tools/ScareCrow
+  - name: PandorasBox
+    repo: https://github.com/4Kp3n/PandorasBox.git
+    path: PandorasBox 
+  - name: PetitPotam
+    repo: https://github.com/topotam/PetitPotam.git
+    path: Tools/PetitPotam
+  - name: PKINITtools
+    repo: https://github.com/dirkjanm/PKINITtools.git
+    path: Tools/PKINITtools
+    version: master 
+  - name: Certipy
+    repo: https://github.com/ly4k/Certipy.git
+    path: Tools/Certipy
 
 python_pip_packages:
   - bloodhound
+  - coercer
   - cheroot
   - docutils
   - libtmux

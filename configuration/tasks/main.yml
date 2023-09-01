@@ -5,10 +5,10 @@
   become: true
   when: pre_configuration == true
 
-- name: Install all packages
-  import_tasks: 1-packages.yml
-  become: true
-  when: kali_packages == true
+#- name: Install all packages
+#  import_tasks: 1-packages.yml
+#  become: true
+#  when: kali_packages == true
 
 - name: Install all tools
   import_tasks: 2-tools.yml
