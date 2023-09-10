@@ -6,27 +6,25 @@
     name: "git"
     state: present
 
-# Create folder Tools 
-- name: Create Tools folder in $HOME  
-  ansible.builtin.file:
-      dest: "/home/{{ user }}/Tools"
-      state: directory
-      owner: "{{ user }}"
-      group: "{{ user }}" 
-      mode: 0700
+# Clone git repos
+- name: clone git repositories, download files and create directory structure
+  block:
+  - name: Clone git repositories
+    become: true
+    become_user: "{{ user }}"
+    ansible.builtin.git:
+      repo: "{{ item.repo }}"
+      dest: "/home/{{ user }}/{{ item.path }}"
+      version: "{{ item.version | default('master') }}"
+      depth: 1
+      force: true
+    loop: "{{ git_repos | flatten(levels=1) }}"
 
 ### AUTORECON
-- name: Copy AutoRecon from repository
-  git:
-    repo: https://github.com/Tib3rius/AutoRecon
-    dest: /home/{{ user}}/Tools/autorecon
-    update: yes
-    force: yes
-
 - name: Install AutoRecon Requirements
   pip:
     executable: pip3
-    requirements: /home/{{ user}}/Tools/autorecon/requirements.txt
+    requirements: /home/{{ user}}/Repos/AutoRecon/requirements.txt
 
 - name: Install pipx - Pt. 1
   ansible.builtin.shell: python3 -m pip install --user pipx
@@ -81,17 +79,3 @@
     state: present
     update_cache: yes
       
-
-# Clone git repos
-- name: clone git repositories, download files and create directory structure
-  block:
-  - name: Clone git repositories
-    become: true
-    become_user: "{{ user }}"
-    ansible.builtin.git:
-      repo: "{{ item.repo }}"
-      dest: "/home/{{ user }}/{{ item.path }}"
-      version: "{{ item.version | default('main') }}"
-      depth: 1
-      force: true
-    loop: "{{ git_repos | flatten(levels=1) }}"

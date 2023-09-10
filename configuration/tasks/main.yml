@@ -5,10 +5,10 @@
   become: true
   when: pre_configuration == true
 
-#- name: Install all packages
-#  import_tasks: 1-packages.yml
-#  become: true
-#  when: kali_packages == true
+- name: Install all packages
+  import_tasks: 1-packages.yml
+  become: true
+  when: kali_packages == true
 
 - name: Install all tools
   import_tasks: 2-tools.yml
@@ -19,13 +19,13 @@
   import_tasks: 3-configuration.yml
   become: true
   when: kali_configuration == true
-
-- name: Custom configuration and dotfiles
-  import_tasks: 3-addconfigs.yml
+    
+- name: Populate PandorasBox
+  import_tasks: 4-pandorasbox.yml
   become: true
-  when: kali_addconfigs == true
+  when: populate_pandorasbox == true
 
 - name: Finalize the configuration
-  import_tasks: 4-post-configuration.yml
+  import_tasks: 5-post-configuration.yml
   become: true
   when: post_configuration == true

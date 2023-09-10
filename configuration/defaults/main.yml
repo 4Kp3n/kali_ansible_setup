@@ -15,11 +15,10 @@ kali_tools: true
 
 # 3-configuration.yml
 kali_configuration: true
+  
+populate_pandorasbox: false 
 
-# 3-addconfigs.yml
-kali_addconfigs: true
-
-# 4-post-configuration.yml
+# 5-post-configuration.yml
 post_configuration: true
 
 # Define packages installed in 1-packages.yml
@@ -65,6 +64,7 @@ packages:
   - payloadsallthethings
   - pipx
   - python3-pip
+  - python3-poetry
   - python3-venv
   - ranger #Vim like file explorer
   - rlwrap
@@ -74,6 +74,8 @@ packages:
   - software-properties-common #Vscode
   - sshpass
   - tnscmd10g
+  - tor
+  - torbrowser-launcher
   - whatweb
   - wireshark
   - wkhtmltopdf
@@ -84,36 +86,55 @@ git_repos:
     # Terminal
   - name: configs
     repo: https://github.com/4Kp3n/configs.git
-    path: Setup/configs
+    path: Repos/configs
+    version: main
   - name: Vundle
     repo: https://github.com/VundleVim/Vundle.vim.git
     path: .config/nvim/bundle/Vundle.vim
-    version: master
+  - name: TPM
+    repo: https://github.com/tmux-plugins/tpm
+    path: .tmux/plugins/tpm
     # Tools
   - name: arsenal
     repo: https://github.com/4Kp3n/arsenal.git
-    path: Tools/arsenal
-    version: master
+    path: Repos/arsenal
+  - name: AutoRecon
+    repo: https://github.com/Tib3rius/AutoRecon.git
+    path: Repos/AutoRecon
+    version: main
+  - name: adidnsdump
+    repo: https://github.com/dirkjanm/adidnsdump.git
+    path: Repos/adidnsdump
   - name: pwndoc
     repo: https://github.com/pwndoc/pwndoc.git
-    path: Tools/pwndoc
+    path: Repos/pwndoc
+    version: main
   - name: ScareCrow
     repo: https://github.com/Tylous/ScareCrow.git
-    path: Tools/ScareCrow
+    path: Repos/ScareCrow
+    version: main
   - name: PandorasBox
     repo: https://github.com/4Kp3n/PandorasBox.git
     path: PandorasBox 
+    version: main
   - name: PetitPotam
     repo: https://github.com/topotam/PetitPotam.git
-    path: Tools/PetitPotam
+    path: Repos/PetitPotam
+    version: main
   - name: PKINITtools
     repo: https://github.com/dirkjanm/PKINITtools.git
-    path: Tools/PKINITtools
-    version: master 
+    path: Repos/PKINITtools
   - name: Certipy
     repo: https://github.com/ly4k/Certipy.git
-    path: Tools/Certipy
-
+    path: Repos/Certipy
+    version: main
+  - name: pyenv
+    repo: https://github.com/pyenv/pyenv.git
+    path: .pyenv
+  - name: BloodHoundQueries
+    repo: https://github.com/CompassSecurity/BloodHoundQueries.git
+    path: Repos/BloodHoundQueries
+  
 python_pip_packages:
   - bloodhound
   - coercer

@@ -1,0 +1,26 @@
+---
+
+# Initial Setup
+- name: Run setup.py in PandorasBox
+  ansible.builtin.shell: python /home/{{user}}/PandorasBox/setup.py
+  become: true
+  become_user: "{{ user }}"
+
+# ScareCrow
+- name: Install go dependencies for ScareCrow
+  ansible.builtin.shell: go get github.com/fatih/color; go get github.com/yeka/zip; go get github.com/josephspurrier/goversioninfo; go get github.com/Binject/debug/pe; go get github.com/awgh/rawreader
+  become: true
+  become_user: "{{ user }}"
+
+- name: Compile ScareCrow
+  ansible.builtin.shell: cd /home/{{user}}Repos/ScareCrow; go build ScareCrow.go
+  become: true
+  become_user: "{{ user }}"
+    
+- name: Copy ScareCrow binary to PandorasBox
+  ansible.builtin.copy:
+    src: /home/{{user}}/Repos/ScareCrow/ScareCrow
+    dest: /home/{{user}}/PandorasBox/Tools/ScareCrow
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0755'
