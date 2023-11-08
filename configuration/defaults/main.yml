@@ -5,7 +5,7 @@ user: "kali"
 
 # Set the tasks that should be executed to true
 # 0-pre-configuration.yml
-pre_configuration: true
+pre_configuration: true 
 
 # 1-packages.yml
 kali_packages: true
@@ -15,11 +15,11 @@ kali_tools: true
 
 # 3-configuration.yml
 kali_configuration: true
-  
-populate_pandorasbox: false 
+
+populate_pandorasbox: false
 
 # 5-post-configuration.yml
-post_configuration: true
+post_configuration: true 
 
 # Define packages installed in 1-packages.yml
 packages:
@@ -28,6 +28,7 @@ packages:
   - bloodhound
   - chisel
   - cmake
+  - cifs-utils #remotely mount VHD files over SMB (HTB Bastion)
   - curl
   - docker.io
   - docker-compose
@@ -48,9 +49,16 @@ packages:
   - htop
   - jq
   - krb5-user
-  - libssl-dev
+  - liblzma-dev #pyenv
   - libimage-exiftool-perl
+  - libguestfs-tools #investigate VM images (HTB Bastion)
+  - libncurses5-dev #pyenv
+  - libreadline-dev #pyenv
+  - libssl-dev
+  - libsqlite3-dev #pyenv
+  - llvm #pyenv
   - mingw-w64 #ScareCrow
+  - mongodb-clients
   - nbtscan-unixwiz
   - neovim
   - neo4j
@@ -63,6 +71,7 @@ packages:
   - parallel
   - payloadsallthethings
   - pipx
+  - phpggc #Create PHP deserialisation payloads
   - python3-pip
   - python3-poetry
   - python3-venv
@@ -73,6 +82,7 @@ packages:
   - smtp-user-enum
   - software-properties-common #Vscode
   - sshpass
+  - tk-dev #pyenv
   - tnscmd10g
   - tor
   - torbrowser-launcher
@@ -105,15 +115,28 @@ git_repos:
   - name: adidnsdump
     repo: https://github.com/dirkjanm/adidnsdump.git
     path: Repos/adidnsdump
-  - name: pwndoc
-    repo: https://github.com/pwndoc/pwndoc.git
-    path: Repos/pwndoc
+  - name: BloodHoundQueries
+    repo: https://github.com/CompassSecurity/BloodHoundQueries.git
+    path: Repos/BloodHoundQueries
+  - name: Certipy
+    repo: https://github.com/ly4k/Certipy.git
+    path: Repos/Certipy
     version: main
+  - name: CrackMapExec
+    repo: https://github.com/byt3bl33d3r/CrackMapExec
+    path: Repos/CrackMapExec
+  - name: DonPAPI
+    repo: https://github.com/login-securite/DonPAPI
+    path: Repos/DonPAPI
+    version: main
+  - name: enum4linux-ng
+    repo: https://github.com/cddmp/enum4linux-ng
+    path: Repos/enum4linux-ng
   - name: ScareCrow
     repo: https://github.com/Tylous/ScareCrow.git
     path: Repos/ScareCrow
     version: main
-  - name: PandorasBox
+  - name: PandorasBox #Own collection of pentest binaries
     repo: https://github.com/4Kp3n/PandorasBox.git
     path: PandorasBox 
     version: main
@@ -124,16 +147,10 @@ git_repos:
   - name: PKINITtools
     repo: https://github.com/dirkjanm/PKINITtools.git
     path: Repos/PKINITtools
-  - name: Certipy
-    repo: https://github.com/ly4k/Certipy.git
-    path: Repos/Certipy
+  - name: pwndoc #Report writing
+    repo: https://github.com/pwndoc/pwndoc.git
+    path: Repos/pwndoc
     version: main
-  - name: pyenv
-    repo: https://github.com/pyenv/pyenv.git
-    path: .pyenv
-  - name: BloodHoundQueries
-    repo: https://github.com/CompassSecurity/BloodHoundQueries.git
-    path: Repos/BloodHoundQueries
   
 python_pip_packages:
   - bloodhound
@@ -148,6 +165,7 @@ python_pip_packages:
   - pywal
   - pyyaml
   - pyfzf
+  - python-evtx #to parse Windows Event files (.evtx)
   - pyperclip
   - roadrecon
   - ropper

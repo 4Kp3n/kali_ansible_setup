@@ -98,20 +98,6 @@
     group: "{{ user }}"
     state: directory
 
-#- name: Install TPM to handle tmux tmux-plugins
-#  ansible.builtin.shell: git clone https://github.com/tmux-plugins/tpm /home/{{ user }}/.tmux/plugins/tpm
-#  become: true
-#  become_user: "{{ user }}"
-    
-      
-## Commented out for now because .config/bloodhound only gets populated after running it once
-#- name: Copy custom queries into bloodhound config
-#  ansible.builtin.copy:
-#    src: /home/{{user}}/Repos/BloodHoundQueries/BloodHound_Custom_Queries/customqueries.json
-#    dest: /home/{{user}}/.config/bloodhound/customqueries.json
-#    owner: "{{ user }}"
-#    group: "{{ user }}"
-#
 - name: Copy vim config for kali
   ansible.builtin.copy:
     src: /home/{{user}}/Repos/configs/init.vim
@@ -161,3 +147,16 @@
     dest: /home/{{user}}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
     owner: "{{ user }}"
     group: "{{ user }}"
+      
+# Fix the issue with arsenal by activating dev.tty.legacy_tiocsti
+- name: Fix arsenal
+  ansible.builtin.shell: echo "dev.tty.legacy_tiocsti=1" >> /etc/sysctl.conf
+  
+# Install pyenv to switch between Python versions 
+# based on this: https://www.kali.org/docs/general-use/using-eol-python-versions/
+- name: Install pyenv
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.shell: curl https://pyenv.run | bash
+  args:
+    chdir: /home/{{user}}
