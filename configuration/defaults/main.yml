@@ -71,7 +71,6 @@ packages:
   - parallel
   - payloadsallthethings
   - pipx
-  - phpggc #Create PHP deserialisation payloads
   - python3-pip
   - python3-poetry
   - python3-venv
@@ -122,13 +121,25 @@ git_repos:
     repo: https://github.com/ly4k/Certipy.git
     path: Repos/Certipy
     version: main
+    ## Poetry install
   - name: CrackMapExec
     repo: https://github.com/byt3bl33d3r/CrackMapExec
     path: Repos/CrackMapExec
+    install_with_poetry: 1
   - name: DonPAPI
     repo: https://github.com/login-securite/DonPAPI
     path: Repos/DonPAPI
     version: main
+    install_with_poetry: 1
+  - name: lsassy
+    repo: https://github.com/Hackndo/lsassy.git
+    path: Repos/lsassy
+    install_with_poetry: 1
+  - name: Coercer
+    repo: https://github.com/p0dalirius/Coercer.git
+    install_with_poetry: 1
+
+
   - name: enum4linux-ng
     repo: https://github.com/cddmp/enum4linux-ng
     path: Repos/enum4linux-ng
@@ -144,6 +155,9 @@ git_repos:
     repo: https://github.com/topotam/PetitPotam.git
     path: Repos/PetitPotam
     version: main
+  - name: phpggc
+    repo: https://github.com/ambionics/phpggc.git
+    path: Repos/phpggc
   - name: PKINITtools
     repo: https://github.com/dirkjanm/PKINITtools.git
     path: Repos/PKINITtools

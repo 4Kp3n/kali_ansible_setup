@@ -7,7 +7,7 @@
     state: present
 
 # Clone git repos
-- name: clone git repositories, download files and create directory structure
+- name: Clone git repositories, download files and create directory structure
   block:
   - name: Clone git repositories
     become: true
@@ -19,6 +19,37 @@
       depth: 1
       force: true
     loop: "{{ git_repos | flatten(levels=1) }}"
+      
+# Install via poetry
+- name: Install applicable Git repos in virtual environment via poetry
+  block:
+  - name: Install {{ item.repo }} with poetry
+    ansible.builtin.shell: 
+      cmd: poetry install
+      chdir: "/home/{{ user }}/{{ item.path }}"
+      executable: /bin/bash
+    loop: "{{ git_repos | flatten(levels=1) }}"
+    when: item.install_with_poetry is defined
+    become: true
+    become_user: "{{ user }}"
+
+## CrackMapExec
+#- name: Setup CrackMapExec with poetry
+#  ansible.builtin.shell: poetry install
+#  become: true
+#  become_user: "{{user}}"
+#  args:
+#    chdir: /home/kali/Repos/CrackMapExec
+#    executable: /bin/bash
+#      
+## DonPAPI
+#- name: Setup DonPAPI with poetry
+#  ansible.builtin.shell: poetry install
+#  become: true
+#  become_user: "{{user}}"
+#  args:
+#    chdir: /home/kali/Repos/DonPAPI
+#    executable: /bin/bash
 
 ### AUTORECON
 - name: Install AutoRecon Requirements

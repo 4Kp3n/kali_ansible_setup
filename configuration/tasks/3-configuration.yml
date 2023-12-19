@@ -140,6 +140,12 @@
     owner: "{{ user }}"
     group: "{{ user }}"
 
+# Copy /etc/hosts file 
+- name: Change /etc/hosts file
+  ansible.builtin.copy:
+    src: /home/{{user}}/Repos/configs/hosts
+    dest: /etc/hosts
+
 # Copy xfce4-power-manager.xml to disable screen lock
 - name: Copy xfce4-power-manager.xml
   ansible.builtin.copy:
