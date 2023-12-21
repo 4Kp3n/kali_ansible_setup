@@ -34,7 +34,6 @@ packages:
   - docker-compose
   - eyewitness
   - enum4linux
-  - exa
   - exif
   - exiftool
   - feroxbuster
