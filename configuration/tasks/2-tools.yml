@@ -33,24 +33,6 @@
     become: true
     become_user: "{{ user }}"
 
-## CrackMapExec
-#- name: Setup CrackMapExec with poetry
-#  ansible.builtin.shell: poetry install
-#  become: true
-#  become_user: "{{user}}"
-#  args:
-#    chdir: /home/kali/Repos/CrackMapExec
-#    executable: /bin/bash
-#      
-## DonPAPI
-#- name: Setup DonPAPI with poetry
-#  ansible.builtin.shell: poetry install
-#  become: true
-#  become_user: "{{user}}"
-#  args:
-#    chdir: /home/kali/Repos/DonPAPI
-#    executable: /bin/bash
-
 ### AUTORECON
 - name: Install AutoRecon Requirements
   pip:

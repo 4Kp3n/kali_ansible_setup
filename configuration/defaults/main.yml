@@ -134,10 +134,6 @@ git_repos:
     repo: https://github.com/Hackndo/lsassy.git
     path: Repos/lsassy
     install_with_poetry: 1
-  - name: Coercer
-    repo: https://github.com/p0dalirius/Coercer.git
-    path: Repos/Coercer
-    install_with_poetry: 1
 
 
   - name: enum4linux-ng
@@ -168,20 +164,16 @@ git_repos:
   
 python_pip_packages:
   - bloodhound
-  - coercer
   - cheroot
+  - coercer
   - docutils
   - libtmux
   - mitm6
   - pipenv
-  - poetry
   - pwntools
   - pywal
   - pyyaml
   - pyfzf
-  - python-evtx #to parse Windows Event files (.evtx)
-  - pyperclip
-  - roadrecon
   - ropper
   - unicorn
   - wsgidav
