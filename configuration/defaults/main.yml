@@ -59,7 +59,7 @@ packages:
   - mingw-w64 #ScareCrow
   - mongodb-clients
   - nbtscan-unixwiz
-  - #neovim # removed from kali repos on April 23
+# - neovim # removed from kali repos on April 23
   - neo4j
   - net-tools
   - nikto
