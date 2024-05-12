@@ -14,7 +14,7 @@ kali_packages: true
 kali_tools: true
 
 # 3-configuration.yml
-kali_configuration: true
+kali_configuration: 
 
 populate_pandorasbox: false
 
@@ -59,7 +59,7 @@ packages:
   - mingw-w64 #ScareCrow
   - mongodb-clients
   - nbtscan-unixwiz
-  - neovim
+  - #neovim # removed from kali repos on April 23
   - neo4j
   - net-tools
   - nikto
@@ -183,6 +183,10 @@ ruby_gem_packages:
   - winrm-fs
   - stringio
   - evil-winrm
+    
+vscode-extensions:
+  - vscodevim.vim
+  - ms-dotnettools.csdevkit
 
 # Define fonts to install
 fonts:
