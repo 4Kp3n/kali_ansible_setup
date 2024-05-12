@@ -163,8 +163,6 @@ git_repos:
     version: main
   
 python_pip_packages:
-  - bloodhound
-  - cheroot
   - coercer
   - docutils
   - libtmux
