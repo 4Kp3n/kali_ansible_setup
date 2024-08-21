@@ -1,7 +1,7 @@
 ---
 # Default file for configuring the Kali Linux operating system
 # Set as the user account that runs the ansible playbook
-user: "kali"
+user: "vagrant"
 
 # Set the tasks that should be executed to true
 # 0-pre-configuration.yml
@@ -14,8 +14,9 @@ kali_packages: true
 kali_tools: true
 
 # 3-configuration.yml
-kali_configuration: 
+kali_configuration: true
 
+# 4-pandorasbox.yml
 populate_pandorasbox: false
 
 # 5-post-configuration.yml
@@ -31,7 +32,7 @@ packages:
   - cifs-utils #remotely mount VHD files over SMB (HTB Bastion)
   - curl
   - docker.io
-  - docker-compose
+  - podman-compose
   - eyewitness
   - enum4linux
   - exif
@@ -59,7 +60,7 @@ packages:
   - mingw-w64 #ScareCrow
   - mongodb-clients
   - nbtscan-unixwiz
-# - neovim # removed from kali repos on April 23
+  - neovim
   - neo4j
   - net-tools
   - nikto
@@ -182,23 +183,7 @@ ruby_gem_packages:
   - stringio
   - evil-winrm
     
+#TODO
 vscode-extensions:
   - vscodevim.vim
   - ms-dotnettools.csdevkit
-
-# Define fonts to install
-fonts:
-  # MesloLGS NF
-  - url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-    dest: /home/{{ user }}/.fonts/meslolgs_nf_regular.ttf
-    mode: "0755"
-  - url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-    dest: /home/{{ user }}/.fonts/meslolgs_nf_bold.ttf
-    mode: "0755"
-  - url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-    dest: /home/{{ user }}/.fonts/meslolgs_nf_italic.ttf
-    mode: "0755"
-  - url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-    dest: /home/{{ user }}/.fonts/meslolgs_nf_bold_italic.ttf
-    mode: "0755" 
-  # MesloLG M   
