@@ -171,7 +171,6 @@ python_pip_packages:
   - pipenv
   - pwntools
   - pywal
-  - pyyaml
   - pyfzf
   - ropper
   - unicorn
