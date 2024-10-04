@@ -71,6 +71,7 @@ packages:
   - parallel
   - payloadsallthethings
   - pipx
+  - python3-docutils #dependency for arsenal
   - python3-pip
   - python3-poetry
   - python3-venv
@@ -122,10 +123,6 @@ git_repos:
     path: Repos/Certipy
     version: main
     ## Poetry install
-  - name: CrackMapExec
-    repo: https://github.com/byt3bl33d3r/CrackMapExec
-    path: Repos/CrackMapExec
-    install_with_poetry: 1
   - name: DonPAPI
     repo: https://github.com/login-securite/DonPAPI
     path: Repos/DonPAPI
@@ -163,18 +160,18 @@ git_repos:
     path: Repos/pwndoc
     version: main
   
-python_pip_packages:
-  - coercer
-  - docutils
-  - libtmux
-  - mitm6
-  - pipenv
-  - pwntools
-  - pywal
-  - pyfzf
-  - ropper
-  - unicorn
-  - wsgidav
+#python_pip_packages:
+#  - coercer
+#  - docutils
+#  - libtmux
+#  - mitm6
+#  - pipenv
+#  - pwntools
+#  - pywal
+#  - pyfzf
+#  - ropper
+#  - unicorn
+#  - wsgidav
 
 ruby_gem_packages:
   - winrm
