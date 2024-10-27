@@ -1,5 +1,4 @@
 ---
-
 # Change directory ownerships
 - name: Recursively change ownership of the ~/Repos directory
   ansible.builtin.file:
@@ -126,6 +125,8 @@
 # Fix the issue with arsenal by activating dev.tty.legacy_tiocsti
 - name: Fix arsenal
   ansible.builtin.shell: echo "dev.tty.legacy_tiocsti=1" >> /etc/sysctl.conf
+- name: Fix for current session too
+  ansible.builtin.shell: sysctl -w dev.tty.legacy_tiocsti=1
   
 # Install pyenv to switch between Python versions 
 # based on this: https://www.kali.org/docs/general-use/using-eol-python-versions/

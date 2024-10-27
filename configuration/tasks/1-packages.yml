@@ -5,13 +5,6 @@
     name: "{{ packages }}"
     state: present
 
-- name: Install Python Pip Packages
-  ansible.builtin.pip:
-    name: "{{ item }}"
-    state: latest
-    executable: pip3
-  loop: "{{ python_pip_packages }}"
-
 - name: Install Ruby Gem Packages
   community.general.gem:
     name: "{{ item }}"
