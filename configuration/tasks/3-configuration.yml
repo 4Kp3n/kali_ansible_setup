@@ -1,5 +1,4 @@
 ---
-
 # Change directory ownerships
 - name: Recursively change ownership of the ~/Repos directory
   ansible.builtin.file:

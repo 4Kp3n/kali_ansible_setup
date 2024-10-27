@@ -24,7 +24,6 @@ post_configuration: true
 
 # Define packages installed in 1-packages.yml
 packages:
-  - apt-transport-https #VScode
   - ascii
   - bloodhound
   - chisel
@@ -40,7 +39,6 @@ packages:
   - feroxbuster
   - flameshot #Nice tool to make screenshots
   - ffuf
-  - gnupg2 #VScode
   - gobuster
   - golang
   - guake
@@ -80,7 +78,6 @@ packages:
   - seclists
   - smbclient
   - smtp-user-enum
-  - software-properties-common #Vscode
   - sshpass
   - tk-dev #pyenv
   - tnscmd10g
@@ -178,8 +175,3 @@ ruby_gem_packages:
   - winrm-fs
   - stringio
   - evil-winrm
-    
-#TODO
-vscode-extensions:
-  - vscodevim.vim
-  - ms-dotnettools.csdevkit

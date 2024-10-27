@@ -32,20 +32,3 @@
     when: item.install_with_poetry is defined
     become: true
     become_user: "{{ user }}"
-
-# Install VScode
-- name: Add Microsofts PGP key
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
-- name: Add VS Code repository
-  copy:
-    content: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    dest: "/etc/apt/sources.list.d/vscode.list"
-  become: yes
-- name: Install VScode
-  apt:
-    name: code
-    state: present
-    update_cache: yes
-      
