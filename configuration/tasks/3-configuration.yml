@@ -40,23 +40,21 @@
       line: "CipherStrings = DEFAULT"
 
 # Install Oh My Zsh
+# Check if Oh My Zsh is already installed globally
 - name: Check if Oh My Zsh is already installed
   ansible.builtin.stat:
-    path: /home/{{ user }}/.oh-my-zsh
+    path: "{{ zsh_install_dir }}"
   register: oh_my_zsh_installed
 
+# Download and install Oh My Zsh if not installed
 - name: Install Oh My Zsh
-  ansible.builtin.shell: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  become: true
-  become_user: "{{ user }}"
+  ansible.builtin.shell: |
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  args:
+    executable: /bin/bash
   when: not oh_my_zsh_installed.stat.exists
-    
-- name: Touch zshhistory
-  ansible.builtin.file:
-    state: touch
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    path: /home/{{user}}/.cache/zshhistory
+  environment: 
+    ZSH: "{{ zsh_install_dir }}"
 
 # Tmux
 - name: Ensure .tmux directory exists
