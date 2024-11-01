@@ -19,6 +19,14 @@
       depth: 1
       force: true
     loop: "{{ git_repos | flatten(levels=1) }}"
+    
+- name: Clone vundle for root user
+  ansible.builtin.git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git"
+    dest: "/root/.config/nvim/bundle/Vundle.vim"
+    depth: 1
+    force: true
+
       
 # Install via poetry
 - name: Install applicable Git repos in virtual environment via poetry
