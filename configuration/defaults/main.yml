@@ -24,9 +24,8 @@ post_configuration: true
 
 # Define packages installed in 1-packages.yml
 packages:
-  - ascii
-  - bloodhound
-  - chisel
+  - ascii # displays an ascii table
+  - chisel # TCP/UDP tunnel over HTTP
   - cmake
   - cifs-utils #remotely mount VHD files over SMB (HTB Bastion)
   - curl
@@ -37,7 +36,6 @@ packages:
   - exif
   - exiftool
   - feroxbuster
-  - flameshot #Nice tool to make screenshots
   - ffuf
   - gobuster
   - golang
@@ -85,7 +83,6 @@ packages:
   - torbrowser-launcher
   - whatweb
   - wireshark
-  - wkhtmltopdf
   - xclip #Copy terminal output to clipboard in X11
   - xsel
     
@@ -112,9 +109,9 @@ git_repos:
   - name: adidnsdump
     repo: https://github.com/dirkjanm/adidnsdump.git
     path: Repos/adidnsdump
-  - name: BloodHoundQueries
-    repo: https://github.com/CompassSecurity/BloodHoundQueries.git
-    path: Repos/BloodHoundQueries
+  - name: BloodHound
+    repo: https://github.com/SpecterOps/BloodHound.git
+    path: Repos/BloodHound
   - name: Certipy
     repo: https://github.com/ly4k/Certipy.git
     path: Repos/Certipy
@@ -129,7 +126,6 @@ git_repos:
     repo: https://github.com/Hackndo/lsassy.git
     path: Repos/lsassy
     install_with_poetry: 1
-
 
   - name: enum4linux-ng
     repo: https://github.com/cddmp/enum4linux-ng
@@ -175,3 +171,7 @@ ruby_gem_packages:
   - winrm-fs
   - stringio
   - evil-winrm
+    
+vscode-extensions:
+  - vscodevim.vim
+  - ms-dotnettools.csdevkit
