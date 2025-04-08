@@ -2,5 +2,8 @@
   hosts: localhost
   become: yes
 
+  vars:
+    zsh_install_dir: "/usr/share/oh-my-zsh"
+
   roles:
     - configuration

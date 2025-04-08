@@ -19,6 +19,14 @@
       depth: 1
       force: true
     loop: "{{ git_repos | flatten(levels=1) }}"
+    
+- name: Clone vundle for root user
+  ansible.builtin.git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git"
+    dest: "/root/.config/nvim/bundle/Vundle.vim"
+    depth: 1
+    force: true
+
       
 # Install via poetry
 - name: Install applicable Git repos in virtual environment via poetry
@@ -32,63 +40,3 @@
     when: item.install_with_poetry is defined
     become: true
     become_user: "{{ user }}"
-
-### AUTORECON
-- name: Install AutoRecon Requirements
-  pip:
-    executable: pip3
-    requirements: /home/{{ user}}/Repos/AutoRecon/requirements.txt
-
-- name: Install pipx - Pt. 1
-  ansible.builtin.shell: python3 -m pip install --user pipx
-  become: true
-  become_user: "{{user}}"
-  args:
-    executable: /bin/bash
-
-- name: Install pipx - Pt. 2
-  ansible.builtin.shell: python3 -m pipx ensurepath
-  become: true
-  become_user: "{{user}}"
-  args:
-    executable: /bin/bash
-
-- name: Install pipx - Pt. 3
-  ansible.builtin.shell: pipx install pipx
-  become: true
-  become_user: "{{user}}"
-  args:
-    executable: /bin/bash
-
-- name: Resource bashrc
-  ansible.builtin.shell: source /home/{{user}}/.bashrc
-  become: true
-  become_user: "{{user}}"
-  args:
-    executable: /bin/bash
-
-- name: Install Autorecon via pipx - Root
-  ansible.builtin.shell: /home/{{user}}/.local/bin/pipx install git+https://github.com/Tib3rius/AutoRecon.git
-
-- name: Install AutoRecon via pipx - User
-  become: true
-  become_user: "{{user}}"
-  ansible.builtin.shell: /home/{{user}}/.local/bin/pipx install git+https://github.com/Tib3rius/AutoRecon.git
-
-  
-# Install VScode
-- name: Add Microsofts PGP key
-  apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
-- name: Add VS Code repository
-  copy:
-    content: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    dest: "/etc/apt/sources.list.d/vscode.list"
-  become: yes
-- name: Install VScode
-  apt:
-    name: code
-    state: present
-    update_cache: yes
-      

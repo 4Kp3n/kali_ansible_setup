@@ -1,5 +1,4 @@
 ---
-
 # Change directory ownerships
 - name: Recursively change ownership of the ~/Repos directory
   ansible.builtin.file:
@@ -41,23 +40,21 @@
       line: "CipherStrings = DEFAULT"
 
 # Install Oh My Zsh
+# Check if Oh My Zsh is already installed globally
 - name: Check if Oh My Zsh is already installed
   ansible.builtin.stat:
-    path: /home/{{ user }}/.oh-my-zsh
+    path: "{{ zsh_install_dir }}"
   register: oh_my_zsh_installed
 
+# Download and install Oh My Zsh if not installed
 - name: Install Oh My Zsh
-  ansible.builtin.shell: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  become: true
-  become_user: "{{ user }}"
+  ansible.builtin.shell: |
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  args:
+    executable: /bin/bash
   when: not oh_my_zsh_installed.stat.exists
-    
-- name: Touch zshhistory
-  ansible.builtin.file:
-    state: touch
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    path: /home/{{user}}/.cache/zshhistory
+  environment: 
+    ZSH: "{{ zsh_install_dir }}"
 
 # Tmux
 - name: Ensure .tmux directory exists
@@ -74,12 +71,17 @@
     group: "{{ user }}"
     state: directory
 
-- name: Copy zshrc_slim for kali
+- name: Copy zshrc for kali
   ansible.builtin.copy:
-    src: /home/{{user}}/Repos/configs/zshrc_slim
+    src: /home/{{user}}/Repos/configs/zshrc
     dest: /home/{{user}}/.zshrc
     owner: "{{ user }}"
     group: "{{ user }}"
+
+- name: Copy zshrc for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Repos/configs/zshrc
+    dest: /root/.zshrc
 
 - name: Copy vim config for kali
   ansible.builtin.copy:
@@ -88,18 +90,38 @@
     owner: "{{ user }}"
     group: "{{ user }}"
 
-- name: Install vim plugins 
+# Copy vimrc to root too
+- name: Ensure the destination directory exists
+  file:
+    path: /root/.config/nvim/
+    state: directory
+    mode: '0755'
+
+- name: Copy vim config for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Repos/configs/init.vim
+    dest: /root/.config/nvim/init.vim
+
+- name: Install vim plugins for user
   ansible.builtin.shell: nvim +PluginInstall +qall
   become: true
   become_user: "{{ user }}"
 
+- name: Install vim plugins for root
+  ansible.builtin.shell: nvim +PluginInstall +qall
+
 # Copy aliase
-- name: Copy user aliase
+- name: Copy aliase for user
   ansible.builtin.copy:
     src: /home/{{user}}/Repos/configs/kali-aliase
     dest: /home/{{user}}/.aliase
     owner: "{{ user }}"
     group: "{{ user }}"
+
+- name: Copy aliase for root
+  ansible.builtin.copy:
+    src: /home/{{user}}/Repos/configs/kali-aliase
+    dest: /root/.aliase
 
 # Copy tmux config
 - name: Change tmux config
@@ -126,6 +148,8 @@
 # Fix the issue with arsenal by activating dev.tty.legacy_tiocsti
 - name: Fix arsenal
   ansible.builtin.shell: echo "dev.tty.legacy_tiocsti=1" >> /etc/sysctl.conf
+- name: Fix for current session too
+  ansible.builtin.shell: sysctl -w dev.tty.legacy_tiocsti=1
   
 # Install pyenv to switch between Python versions 
 # based on this: https://www.kali.org/docs/general-use/using-eol-python-versions/
