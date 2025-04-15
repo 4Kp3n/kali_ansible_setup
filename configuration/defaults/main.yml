@@ -1,7 +1,7 @@
 ---
 # Default file for configuring the Kali Linux operating system
 # Set as the user account that runs the ansible playbook
-user: "vagrant"
+user: "kali"
 
 # Set the tasks that should be executed to true
 # 0-pre-configuration.yml
