@@ -8,7 +8,8 @@
 - name: Remove Kali packages
   ansible.builtin.apt:
     name: "{{ removes }}"
-    state: purge
+    state: absent
+    purge: yes
 
 - name: Install Ruby Gem Packages
   community.general.gem:
