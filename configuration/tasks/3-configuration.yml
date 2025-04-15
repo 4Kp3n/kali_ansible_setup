@@ -148,7 +148,7 @@
 # Fix the issue with arsenal by activating dev.tty.legacy_tiocsti via a systemd service
 - name: Copy fix-arsenal service file
   ansible.builtin.copy:
-    src: "{{ user }}/Repos/configs/fix-arsenal.service"
+    src: "/home/{{user}}/Repos/configs/fix-arsenal.service"
     dest: "/etc/systemd/system/fix-arsenal.service"
     owner: root
     group: root
