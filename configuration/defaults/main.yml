@@ -22,7 +22,10 @@ populate_pandorasbox: false
 # 5-post-configuration.yml
 post_configuration: true 
 
-# Define packages installed in 1-packages.yml
+
+removes:
+  - bloodhound-python # remove the legacy bloodhound-python tool
+
 packages:
   - ascii # displays an ascii table
   - chisel # TCP/UDP tunnel over HTTP

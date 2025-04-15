@@ -5,6 +5,11 @@
     name: "{{ packages }}"
     state: present
 
+- name: Remove Kali packages
+  ansible.builtin.apt:
+    name: "{{ removes }}"
+    state: absent
+
 - name: Install Ruby Gem Packages
   community.general.gem:
     name: "{{ item }}"
