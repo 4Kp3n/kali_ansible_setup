@@ -29,14 +29,14 @@
 
       
 # Install via poetry
-- name: Install applicable Git repos in virtual environment via poetry
-  block:
-  - name: Install {{ item.repo }} with poetry
-    ansible.builtin.shell: 
-      cmd: poetry install
-      chdir: "/home/{{ user }}/{{ item.path }}"
-      executable: /bin/bash
-    loop: "{{ git_repos | flatten(levels=1) }}"
-    when: item.install_with_poetry is defined
-    become: true
-    become_user: "{{ user }}"
+#- name: Install applicable Git repos in virtual environment via poetry
+#  block:
+#  - name: Install {{ item.repo }} with poetry
+#    ansible.builtin.shell: 
+#      cmd: poetry install
+#      chdir: "/home/{{ user }}/{{ item.path }}"
+#      executable: /bin/bash
+#    loop: "{{ git_repos | flatten(levels=1) }}"
+#    when: item.install_with_poetry is defined
+#    become: true
+#    become_user: "{{ user }}"

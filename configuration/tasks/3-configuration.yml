@@ -145,24 +145,19 @@
     owner: "{{ user }}"
     group: "{{ user }}"
       
-# Fix the issue with arsenal by activating dev.tty.legacy_tiocsti
-- name: Fix arsenal
-  ansible.builtin.shell: echo "dev.tty.legacy_tiocsti=1" >> /etc/sysctl.conf
-- name: Fix for current session too
-  ansible.builtin.shell: sysctl -w dev.tty.legacy_tiocsti=1
-  
-# Install pyenv to switch between Python versions 
-# based on this: https://www.kali.org/docs/general-use/using-eol-python-versions/
-- name: Check if pyenv is already installed
-  ansible.builtin.stat:
-    path: /home/{{ user }}/.pyenv
-  register: pyenv_installed
+# Fix the issue with arsenal by activating dev.tty.legacy_tiocsti via a systemd service
+- name: Copy fix-arsenal service file
+  ansible.builtin.copy:
+    src: "{{ user }}/Repos/configs/fix-arsenal.service"
+    dest: "/etc/systemd/system/fix-arsenal.service"
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: yes  # Set to no if the file is on the Ansible controller
 
-
-- name: Install pyenv
-  become: true
-  become_user: "{{ user }}"
-  ansible.builtin.shell: curl https://pyenv.run | bash
-  args:
-    chdir: /home/{{user}}
-  when: not pyenv_installed.stat.exists
+- name: Enable and start fix-arsenal service
+  ansible.builtin.systemd:
+    name: fix-arsenal
+    enabled: yes
+    state: started
+    daemon_reload: yes
