@@ -27,14 +27,8 @@ packages:
   - ascii # displays an ascii table
   - chisel # TCP/UDP tunnel over HTTP
   - cmake
-  - cifs-utils #remotely mount VHD files over SMB (HTB Bastion)
-  - curl
   - docker.io
-  - podman-compose
-  - eyewitness
-  - enum4linux
-  - exif
-  - exiftool
+  - docker-compose
   - feroxbuster
   - ffuf
   - gobuster
@@ -43,48 +37,18 @@ packages:
   - gvm
   - hexedit
   - htop
-  - jq
   - krb5-user
-  - liblzma-dev #pyenv
-  - libimage-exiftool-perl
-  - libguestfs-tools #investigate VM images (HTB Bastion)
-  - libncurses5-dev #pyenv
-  - libreadline-dev #pyenv
-  - libssl-dev
-  - libsqlite3-dev #pyenv
-  - llvm #pyenv
-  - mingw-w64 #ScareCrow
-  - mongodb-clients
-  - nbtscan-unixwiz
+  - mingw-w64 # Cross compile for Windows
   - neovim
-  - neo4j
-  - net-tools
-  - nikto
-  - nmap
   - openssh-server
-  - oscanner
-  - osslsigncode #ScareCrow
-  - parallel
   - payloadsallthethings
-  - pipx
-  - python3-docutils #dependency for arsenal
-  - python3-pip
-  - python3-poetry
-  - python3-venv
   - ranger #Vim like file explorer
   - rlwrap
   - seclists
-  - smbclient
-  - smtp-user-enum
   - sshpass
-  - tk-dev #pyenv
-  - tnscmd10g
   - tor
   - torbrowser-launcher
-  - whatweb
-  - wireshark
-  - xclip #Copy terminal output to clipboard in X11
-  - xsel
+  - xclip # Copy terminal output to clipboard in X11
     
 git_repos:
     # Terminal
@@ -98,10 +62,11 @@ git_repos:
   - name: TPM
     repo: https://github.com/tmux-plugins/tpm
     path: .tmux/plugins/tpm
-    # Tools
   - name: arsenal
     repo: https://github.com/4Kp3n/arsenal.git
     path: Repos/arsenal
+
+    # Tools
   - name: AutoRecon
     repo: https://github.com/Tib3rius/AutoRecon.git
     path: Repos/AutoRecon
@@ -112,10 +77,11 @@ git_repos:
   - name: BloodHound
     repo: https://github.com/SpecterOps/BloodHound.git
     path: Repos/BloodHound
-  - name: Certipy
-    repo: https://github.com/ly4k/Certipy.git
-    path: Repos/Certipy
-    version: main
+    Version: main
+  - name: Coercer
+    repo: https://github.com/p0dalirius/Coercer.git
+    path: Repos/Coercer
+
     ## Poetry install
   - name: DonPAPI
     repo: https://github.com/login-securite/DonPAPI
@@ -138,20 +104,12 @@ git_repos:
     repo: https://github.com/4Kp3n/PandorasBox.git
     path: PandorasBox 
     version: main
-  - name: PetitPotam
-    repo: https://github.com/topotam/PetitPotam.git
-    path: Repos/PetitPotam
-    version: main
   - name: phpggc
     repo: https://github.com/ambionics/phpggc.git
     path: Repos/phpggc
   - name: PKINITtools
     repo: https://github.com/dirkjanm/PKINITtools.git
     path: Repos/PKINITtools
-  - name: pwndoc #Report writing
-    repo: https://github.com/pwndoc/pwndoc.git
-    path: Repos/pwndoc
-    version: main
   
 #python_pip_packages:
 #  - coercer
@@ -171,7 +129,3 @@ ruby_gem_packages:
   - winrm-fs
   - stringio
   - evil-winrm
-    
-vscode-extensions:
-  - vscodevim.vim
-  - ms-dotnettools.csdevkit
