@@ -24,10 +24,11 @@ post_configuration: true
 
 
 removes:
-  - bloodhound-python # remove the legacy bloodhound-python tool
+  - bloodhound.py # remove the legacy bloodhound-python tool
 
 packages:
   - ascii # displays an ascii table
+  - bloodhound-ce-python
   - chisel # TCP/UDP tunnel over HTTP
   - cmake
   - docker.io
